@@ -44,8 +44,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import event, func, select
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
-import sentry_sdk
-from sentry_sdk.integrations.flask import FlaskIntegration
 
 # Load environment variables from .env file
 load_dotenv()
@@ -1136,6 +1134,7 @@ def init_db():
 
         # Add missing columns
         with app.app_context():
+            db.create_all()
             # Reflect the database
             db.reflect()
             # Check if 'is_verified' column exists
